@@ -1,0 +1,47 @@
+https://leetcode.com/problems/two-sum
+
+
+Accepted.
+
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
+    int index = 0;
+    bool found_it = false;
+    while (true) {
+        int number_1 = nums[index];
+        int index2 = 0;
+        while (true) {
+            if (index == index2) {
+                index2 += 1;
+                continue;
+            }
+            int number_2 = nums[index2];
+            if ((number_1 + number_2) == target) {
+                //printf("%d%d\n", index, index2);
+                found_it = true;
+
+                int *return_list = malloc(2 * sizeof(int));
+                return_list[0] = index;
+                return_list[1] = index2;
+                *returnSize = 2;
+                return return_list;
+                break;
+            }
+            index2 += 1;
+            if (index2 >= numsSize) {
+                break;
+            }
+        }
+        if (found_it == true) {
+            break;
+        }
+        index += 1;
+        if (index >= numsSize) {
+            break;
+        }
+    }
+    return NULL;
+}
