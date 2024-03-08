@@ -1,0 +1,31 @@
+https://leetcode.com/problems/palindrome-number
+
+
+Accepted
+
+
+bool isPalindrome(int x) {
+    if (x < 0) {
+        return false;
+    }
+
+    char string_number[500];
+    sprintf(string_number, "%d", x);
+    //printf("%s", string_number);
+    
+    int string_length = strlen(string_number);
+    int index = 0;
+    while(true) {
+        char start_char = string_number[index];
+        char end_char = string_number[string_length - index - 1];
+        if (start_char != end_char) {
+            //printf("%c", start_char);
+            return false;
+        }
+        index += 1;
+        if (index >= string_length) {
+            break;
+        }
+    }
+    return true;
+}
