@@ -1,0 +1,54 @@
+https://leetcode.com/problems/valid-parentheses
+
+
+General Solution But Time Out
+
+
+bool isValid(char* s) {
+    char *memory_string = malloc(sizeof(char) * INT_MAX);
+    int memory_index = 0;
+
+    bool process_start = false;
+
+    for (int index = 0; s[index] != '\0'; index = index + 1) {
+        char character = s[index];
+        if ((character == '(') || (character == '{') || (character == '[')) {
+            if (character == '(') {
+                memory_string[memory_index] = ')';
+            } else if (character == '{') {
+                memory_string[memory_index] = '}';
+            } else if (character == '[') {
+                memory_string[memory_index] = ']';
+            }
+            memory_index += 1;
+
+            process_start = true;
+        } else if ((character == ')') || (character == '}') || (character == ']')) {
+            if (process_start == false) {
+                return false;
+            }
+
+            if ((memory_index-1) >= 0) {
+                if (character == memory_string[memory_index-1]) {
+                    // get the right ending symbol, delete its pair character in memory
+                    memory_string[memory_index-1] = '\0';
+                    memory_index -= 1;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            // ignore general other characters
+        }
+    }
+
+    if (memory_index == 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+    return false;
+}
