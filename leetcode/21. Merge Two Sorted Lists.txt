@@ -1,0 +1,81 @@
+https://leetcode.com/problems/merge-two-sorted-lists
+
+
+Accepted
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
+    struct ListNode *(*node_list) = malloc(sizeof(struct ListNode **) * 120);
+
+    struct ListNode *a_node = list1;
+    int index = 0;
+    while (true) {
+        if (a_node == NULL) {
+            break;
+        }
+        node_list[index] = a_node;
+        index += 1;
+        a_node = (*a_node).next;
+    }
+    a_node = list2;
+    while (true) {
+        if (a_node == NULL) {
+            break;
+        }
+        node_list[index] = a_node;
+        index += 1;
+        a_node = (*a_node).next;
+    }
+
+    int length = index;
+    while (true) {
+        bool no_sort = true;
+        index = 0;
+        while (true) {
+            if (index > 0) {
+                int previous_value = (*node_list[index-1]).val;
+                int current_value = (*node_list[index]).val;
+                if (current_value < previous_value) {
+                    // instead of sort two pair each time, there has another way called 'insertion sort',
+                    // it first do a loop in all numbers, in that loop, for each number, it goes back to see who is bigger than him, if so, put him before that number by doing an insertion.
+                    struct ListNode *temp = node_list[index-1];
+                    node_list[index-1] = node_list[index];
+                    node_list[index] = temp;
+                    no_sort = false;
+                }
+            }
+            //printf("%d", (*node_list[index]).val);
+            index += 1;
+            if (index >= length) {
+                break;
+            }
+        }
+        if (no_sort == true) {
+            break;
+        }
+    }
+
+    if (length == 0) {
+        return NULL;
+    }
+
+    index = 0;
+    while (true) {
+        if (index == (length - 1)) {
+            (*node_list[index]).next = NULL;
+            break;
+        }
+        (*node_list[index]).next = node_list[index+1];
+        //printf("%d", (*node_list[index]).val);
+        index += 1;
+    }
+
+    return node_list[0];
+}
