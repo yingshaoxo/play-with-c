@@ -1,0 +1,27 @@
+https://leetcode.com/problems/remove-duplicates-from-sorted-array
+
+
+Accepted
+
+
+int removeDuplicates(int* nums, int numsSize) {
+    int *my_number_list = malloc(sizeof(int) * numsSize);
+    int my_number_list_length = 0;
+    for (int i = 0; i < numsSize; i = i + 1) {
+        int value = nums[i];
+        bool ok_for_adding = true;
+        for (int i2 = 0; i2 < my_number_list_length; i2 = i2 + 1) {
+            if (my_number_list[i2] == value) {
+                ok_for_adding = false;
+                break;
+            }
+        }
+        if (ok_for_adding == true) {
+            nums[my_number_list_length] = value;
+            my_number_list[my_number_list_length] = value;
+            my_number_list_length += 1;
+        }
+        //printf("%d", value);
+    }
+    return my_number_list_length;
+}
