@@ -1,0 +1,42 @@
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string
+
+
+Accepted
+
+
+int strStr(char* haystack, char* needle) {
+    char *full_string = haystack;
+    char *sub_string = needle;
+    int index = 0;
+    while (true) {
+        char *current_character = full_string[index];
+        if (current_character == '\0') {
+            break;
+        }
+        bool found_it = true;
+        int sub_index = 0;
+        while (true) {
+            char *temp_character = sub_string[sub_index];
+            if (temp_character == '\0') {
+                found_it = true;
+                break;
+            }
+            if (full_string[index + sub_index] == '\0') {
+                //found_it = false;
+                //break;
+                return -1;
+            }
+            if (temp_character != full_string[index + sub_index]) {
+                found_it = false;
+                break;
+            }
+            sub_index += 1;
+        }
+        //printf("%c", current_character);
+        if (found_it == true) {
+            return index;
+        }
+        index += 1;
+    }
+    return -1;
+}
