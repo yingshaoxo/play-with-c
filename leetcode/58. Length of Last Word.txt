@@ -1,0 +1,43 @@
+https://leetcode.com/problems/length-of-last-word
+
+
+Accepted
+
+
+int lengthOfLastWord(char* s) {
+    char *a_string = malloc(sizeof(char) * strlen(s)+1);
+    unsigned long long index = strlen(s) - 1;
+    unsigned long long index2 = index;
+    a_string[index2+1] = '\0';
+    //printf("%d", index);
+
+    bool process_start = false;
+    while (true) {
+        char current_char = s[index];
+        if (current_char != ' ') {
+            a_string[index2] = current_char;
+            index2 -= 1;
+            process_start = true;
+        } else {
+            if (process_start == true) {
+                break;
+            }
+        }
+        index = index - 1;
+        if (index == -1) {
+            break;
+        }
+    } 
+
+    int counting = 0;
+    index2 = index2 + 1;
+    while (true) {
+        if (a_string[index2] == '\0') {
+            break;
+        }
+        counting += 1;
+        index2 = index2 + 1;
+    }
+    
+    return counting;
+}
